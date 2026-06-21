@@ -75,6 +75,14 @@ This repository can include project-local Codex skills when they support IAproje
 
 Personal or global Codex skills, such as Git/GitHub workflow helpers or technical documentation helpers, are not stored in this repository.
 
+## AI-Assisted Documentation
+
+Project documentation can also be maintained in Notion with AI assistance through MCP:
+
+- Notion documentation page: https://app.notion.com/p/Codex-2a73bf6a0ee6805797e7f1bd3ce8c722
+- MCP integration: Codex uses the Notion MCP connection to read or update shared Notion pages.
+- Responsible Codex skill: the global `technical-docs-writer` skill guides technical documentation updates.
+
 ## API Endpoints
 
 ```http
