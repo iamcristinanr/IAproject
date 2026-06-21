@@ -1,128 +1,88 @@
 # AGENTS.md
 
-## Project Context
+## Project
 
-IAproject is a Spring Boot and Angular web application for generating study questions about computer science and software development topics.
+IAproject is a Spring Boot and Angular app for generating study questions about computer science and software development topics.
 
-The product should help users study topics such as Java, backend development, frontend development, Spring Boot, cybersecurity, databases, REST APIs, Docker, Git/GitHub, testing, and software architecture.
+Keep the MVP focused on this learner flow:
 
-## Language Rules
+1. Browse topics and skills.
+2. Select topic, difficulty, and question type.
+3. Generate a study question.
+4. Show answer and explanation.
+5. Keep agents/tools visible in the UI and API.
 
-- Code, comments, documentation, commits, branches, UI text, API names, classes, and files must be written in English.
-- Conversation with the project owner can be in Spanish.
+Question generation is currently template-based. Do not add an external AI provider until the local flow is stable.
 
-## Engineering Principles
+## Language
 
-- Use hexagonal architecture for the backend.
-- Keep business logic independent from frameworks and infrastructure.
-- Apply Clean Code principles: clear names, small methods, simple control flow, and minimal duplication.
-- Apply SOLID principles where they improve clarity and maintainability.
-- Prefer explicit, readable code over clever abstractions.
-- Keep security in mind from the beginning, especially input validation, authentication, authorization, error handling, and secret management.
-- Do not expose secrets, tokens, credentials, stack traces, or internal implementation details.
+- Code, comments, docs, commits, branches, UI text, API names, classes, and files: English.
+- Conversation with the project owner: Spanish is allowed.
 
-## Tech Stack
+## Stack
 
-- Backend: Java 21, Spring Boot, Maven Wrapper.
+- Backend: Java 21, Spring Boot, Maven Wrapper, H2 for development.
 - Frontend: Angular, TypeScript, CSS.
-- Current development database: H2.
 - Future database target: PostgreSQL.
 
-## Repository Structure
+## Work Style
 
-```text
-IAproject/
-  backend/    Spring Boot REST API
-  frontend/   Angular single-page application
-  README.md
-  AGENTS.md
-```
+- Prefer targeted searches and focused file reads over scanning the whole repository.
+- Do not refactor, rename, or reformat unrelated code without permission.
+- Keep changes small, explicit, and aligned with the current structure.
+- Apply Clean Code and SOLID when they improve clarity.
+- Do not expose secrets, tokens, credentials, stack traces, or internal details.
 
-## Backend Architecture
+## Backend Rules
 
-The backend should follow hexagonal architecture:
+Use hexagonal architecture:
 
 ```text
 backend/src/main/java/com/iaproject/backend/
-  domain/          Core business model and domain rules
-  application/     Use cases and ports
-  infrastructure/  Adapters, persistence, external services, configuration
-  api/             REST controllers and HTTP DTOs
+  domain/
+  application/
+  infrastructure/
+  api/
 ```
 
-Rules:
-
-- Domain code must not depend on Spring, JPA, HTTP, databases, or external APIs.
-- Application services orchestrate use cases through ports.
-- Infrastructure implements adapters for persistence, AI providers, tools, and external systems.
-- REST controllers should be thin and delegate to application services.
+- `domain` must not depend on Spring, JPA, HTTP, databases, or external APIs.
+- `application` orchestrates use cases through ports.
+- `infrastructure` implements adapters for persistence, AI providers, tools, and external services.
+- `api` contains thin REST controllers and HTTP DTOs.
 - Validate incoming requests before executing use cases.
-- Keep generated question logic behind a port so template-based generation can later be replaced by an AI provider.
+- Keep question generation behind a port.
 
-## Product Concepts
+## Product Terms
 
-The project models these concepts as part of the application domain:
-
-- Agents: components that perform study-related tasks.
+- Agents: study task components, such as `QuestionGeneratorAgent`, `AnswerReviewerAgent`, and `StudyPlannerAgent`.
 - Skills: topic-specific capabilities or knowledge areas.
-- Tools: reusable actions used by agents.
-- Topics: study areas selected by the user.
-- Questions: generated study questions.
-- Quizzes: future practice sessions made from questions.
+- Tools: reusable actions, such as `GenerateQuestionTool`, `EvaluateAnswerTool`, and `SuggestNextTopicTool`.
+- Topics, questions, and future quizzes are core domain concepts.
 
-Current MVP examples:
+## Frontend Rules
 
-- `QuestionGeneratorAgent`
-- `AnswerReviewerAgent`
-- `StudyPlannerAgent`
-- `GenerateQuestionTool`
-- `EvaluateAnswerTool`
-- `SuggestNextTopicTool`
-
-## Current MVP Scope
-
-Focus on a working learner flow before adding advanced features:
-
-1. Browse topics and skills.
-2. Select a topic, difficulty, and question type.
-3. Generate a study question.
-4. Show the answer and explanation.
-5. Keep the agent/tool model visible in the UI and API.
-
-Question generation currently uses deterministic templates. Do not add an external AI provider until the local flow is stable.
-
-## Security Guidelines
-
-- Validate all external input.
-- Use safe defaults for CORS and only allow required origins.
-- Do not hardcode secrets in the repository.
-- Do not log tokens, passwords, credentials, or personal data.
-- Return safe error responses without internal stack traces.
-- Add authentication and authorization before storing user-specific progress or private data.
-- Prefer environment variables for configuration that differs by environment.
-
-## Frontend Guidelines
-
-- Build the usable app as the first screen.
-- Keep the UI focused on studying, not marketing.
-- Prefer clear controls: selects, buttons, cards, badges, and compact sections.
-- Keep layouts responsive for desktop and mobile.
-- Use English UI copy.
-- Avoid decorative complexity that does not help the study workflow.
-- Validate user input before sending requests.
+- Build the usable study app as the first screen, not a marketing page.
+- Use clear controls: selects, buttons, cards, badges, compact sections.
+- Keep layouts responsive.
+- Validate input before API calls.
 - Handle loading, empty, and error states.
 
-## Useful Commands
+## Security
 
-Backend:
+- Validate all external input.
+- Use safe CORS defaults and only allow required origins.
+- Do not hardcode or log secrets, tokens, passwords, credentials, or personal data.
+- Return safe error responses without stack traces.
+- Add authentication and authorization before storing user-specific progress.
+- Use environment variables for environment-specific configuration.
+
+## Commands
 
 ```powershell
 cd backend
 .\mvnw.cmd test
 .\mvnw.cmd spring-boot:run
 ```
-
-Frontend:
 
 ```powershell
 cd frontend
@@ -132,43 +92,20 @@ npm run build
 npm test -- --watch=false
 ```
 
-## Project Codex Skills
-
-- Keep project-specific Codex skills under `.codex/skills/`.
-- Use `.codex/skills/learning-log-updater` as the canonical skill for updating `AI_LEARNING_LOG.md`.
-- The learning log records what the project owner learns about AI-assisted development while building IAproject.
-- Do not treat the global `learning-log-updater` skill as the source of truth for this project if a local copy exists.
-- Commit project-local skills only when they are part of IAproject's workflow and useful to future agents working in this repository.
-- Do not copy or commit global personal skills into this repository. Global skills such as `git-github-practices` and `technical-docs-writer` should remain under the user's global Codex skills directory.
-
 ## Verification
 
-Before finishing code changes, run the relevant checks:
+- Run the smallest relevant test first.
+- Before finishing code changes, run relevant backend and/or frontend checks when practical.
+- If a check cannot be run, state why.
 
-```powershell
-cd backend
-.\mvnw.cmd test
-```
+## Codex Skills
 
-```powershell
-cd frontend
-npm run build
-npm test -- --watch=false
-```
+- Keep project-specific skills under `.codex/skills/`.
+- Use `.codex/skills/learning-log-updater` as the canonical skill for `AI_LEARNING_LOG.md`.
+- Do not copy global personal skills into this repository.
 
-## Git Guidelines
+## Git
 
-- Do not commit or push unless the project owner asks for it.
+- Do not commit or push unless the project owner asks.
 - Do not revert user changes unless explicitly requested.
 - Keep commits focused and written in English.
-
-## Near-Term Roadmap
-
-- Add persistence adapters for the current hexagonal backend.
-- Add persistent storage for generated questions.
-- Add quiz creation and quiz results.
-- Add answer evaluation.
-- Add topic detail pages.
-- Add admin management for topics, skills, agents, and tools.
-- Add authentication and user progress later.
-- Add real AI integration behind the existing agent/tool abstraction.

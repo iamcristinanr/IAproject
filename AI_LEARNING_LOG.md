@@ -128,3 +128,46 @@ This file tracks AI-assisted development concepts learned while building IAproje
 - Use the Git/GitHub practices skill when preparing real commits and pull requests.
 - Improve the documentation skill with IAproject-specific templates if repeated documentation tasks appear.
 - Learn how to version and evolve skills as the project workflow matures.
+
+## 2026-06-21 - Token Optimization and Context Control
+
+### Concepts Learned
+
+- Token usage measurement: introduced using `/status` before and after an action to estimate how much context a task consumed.
+- Context window: introduced the idea that every file read, command output, prompt, response, and tool result uses part of the available context.
+- Scope control: learned that precise requests such as "review only the Notion MCP configuration" are cheaper than broad requests such as "review the whole project".
+- Targeted search: introduced searching by symbols, class names, variable names, or exact errors before opening files.
+- Diagnosis before edits: learned to ask for cause, evidence, and the smallest next step before changing code.
+- Minimal output: reinforced asking for diffs, changed blocks, short summaries, or the first relevant error instead of full files or long logs.
+- Context reset: introduced using `/clear` when switching topics, after first asking for a compact state summary.
+- Skill size: learned that small, focused skills are more efficient than one large skill that covers many unrelated workflows.
+- Skill references pattern: learned that examples inside `SKILL.md` are loaded whenever the skill activates, while examples in `references/` can stay out of context until needed.
+- Subagent tradeoffs: introduced that subagents can reduce main-agent context for large tasks but still consume their own tokens.
+- Test scope: learned to start with the smallest relevant test before running larger modules or full suites.
+
+### Practical Actions
+
+- Defined a practical before-and-after token measurement workflow with `/status`.
+- Listed request patterns that reduce unnecessary context usage, such as limiting file reads and avoiding unrelated refactors.
+- Identified when to use targeted searches instead of reading complete configuration folders.
+- Applied the pattern of keeping `SKILL.md` focused on rules and moving longer examples or templates into `references/examples.md`.
+- Created a staged workflow for larger tasks: diagnosis, minimal plan, focused changes, targeted verification, and concise summary.
+- Clarified when subagents are useful, such as large project analysis or big pull request reviews, and when they are unnecessary.
+
+### Key Vocabulary
+
+- Token: a unit of text processed by the model, including prompts, file contents, command output, and responses.
+- Context window: the maximum amount of information the model can keep active in one conversation.
+- Scope: the exact boundary of a task, including which files, modules, or errors are relevant.
+- Targeted search: searching for specific identifiers or error messages before opening files.
+- Diagnostic pass: an investigation step that collects evidence before applying code changes.
+- Diff: the set of changed lines between two versions of a file.
+- Reference file: a skill resource that can hold examples or detailed guidance and only needs to be read when relevant.
+- Subagent: a secondary agent used to investigate or summarize work for the main agent.
+
+### Next Concepts To Learn
+
+- Practice writing compact task prompts with explicit scope, expected output length, and files to avoid.
+- Learn when a full test suite is necessary after a focused change.
+- Refine `AGENTS.md` so it stays short while still preserving important project rules.
+- Consider creating a small `token-optimization` skill if this workflow becomes repetitive.
