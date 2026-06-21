@@ -1,0 +1,4 @@
+interface:
+  display_name: "IAproject Learning Log"
+  short_description: "Update IAproject learning milestones"
+  default_prompt: "Use $learning-log-updater to update IAproject's AI learning log with concepts from this conversation."

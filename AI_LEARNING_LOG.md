@@ -89,3 +89,42 @@ This file tracks AI-assisted development concepts learned while building IAproje
 - Decide which documentation belongs in GitHub and which documentation belongs in Notion.
 - Add templates for architecture notes, feature specifications, API documentation, and product decisions.
 - Use GitHub issues or pull requests together with Notion documentation to keep implementation and planning aligned.
+
+## 2026-06-21 - Codex Skills, Global Workflows, and Project-Local Automation
+
+### Concepts Learned
+
+- Codex skills: introduced skills as reusable instruction packages that teach Codex how to perform a recurring workflow with project-specific or domain-specific rules.
+- Built-in Codex skills: introduced that Codex can provide system skills, such as skill creation, skill installation, OpenAI documentation lookup, image generation, and browser control.
+- Custom global skills: introduced that personal reusable skills can live outside one project and be reused across workspaces, such as the technical documentation skill and the Git/GitHub practices skill.
+- Project-local skills: introduced that IAproject can keep its own skills under `.codex/skills/` when they are tied to this repository, such as the learning log updater.
+- Skill creation workflow: introduced the process of reading the `skill-creator` instructions, initializing a skill, writing `SKILL.md`, adding references, and validating the result.
+- Git and GitHub best practices: introduced using short branch names, focused commits, Conventional Commit messages, PR summaries, verification notes, and safe Git behavior.
+- Learning log automation: reinforced that the local `learning-log-updater` skill is the canonical workflow for updating `AI_LEARNING_LOG.md`.
+
+### Practical Actions
+
+- Reviewed official Git, GitHub, and Conventional Commits guidance before defining the Git/GitHub workflow.
+- Created `git-github-practices` and moved it to the global skills directory so it can guide Git branches, commits, and pull requests across projects.
+- Added examples for branch names, commit messages, pull request bodies, and weak commit messages to avoid.
+- Validated the new Git/GitHub skill with the official skill validator.
+- Kept `learning-log-updater` as a project-local skill because it updates IAproject's own `AI_LEARNING_LOG.md`.
+
+### Key Vocabulary
+
+- Built-in skill: a Codex-provided skill available for common workflows.
+- Global skill: a reusable personal skill available across projects.
+- Project-local skill: a skill stored inside a specific repository and tailored to that project's rules.
+- Global skills directory: the user-level skills location, such as `C:\Users\usuario\.codex\skills`.
+- `SKILL.md`: the required instruction file that defines a Codex skill.
+- Frontmatter: the YAML metadata at the top of `SKILL.md`, including `name` and `description`.
+- Reference file: an optional skill resource loaded when extra examples or detailed guidance are needed.
+- Conventional Commit: a structured commit message such as `feat(frontend): add topic controls`.
+- Pull request: a GitHub proposal to review and merge code changes.
+
+### Next Concepts To Learn
+
+- Decide which workflows should become global skills and which should stay project-local before committing them to a repository.
+- Use the Git/GitHub practices skill when preparing real commits and pull requests.
+- Improve the documentation skill with IAproject-specific templates if repeated documentation tasks appear.
+- Learn how to version and evolve skills as the project workflow matures.

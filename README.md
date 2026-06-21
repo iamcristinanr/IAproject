@@ -1,6 +1,6 @@
-﻿# IAproject
+# IAproject
 
-IAproject is a web application designed to generate study questions for any topic related to computer science and software development.
+IAproject is a Spring Boot and Angular web application designed to generate study questions for any topic related to computer science and software development.
 
 The goal is to help students, developers, and interview candidates practice technical concepts through generated questions, explanations, and quizzes.
 
@@ -50,15 +50,83 @@ The project may be built using technologies such as:
 
 ## Project Status
 
-This project is in its initial phase. The main idea, scope, and repository structure are being defined.
+This project is in its initial MVP phase. The repository now contains a Spring Boot REST API and an Angular frontend.
+
+## Architecture
+
+```text
+IAproject/
+  backend/    Spring Boot REST API
+  frontend/   Angular single-page application
+```
+
+The MVP models agents, skills, and tools as first-class study concepts:
+
+- `QuestionGeneratorAgent` creates questions for selected technical topics.
+- `AnswerReviewerAgent` will evaluate answers and explain mistakes.
+- `StudyPlannerAgent` will suggest what to study next.
+- `GenerateQuestionTool`, `EvaluateAnswerTool`, and `SuggestNextTopicTool` represent reusable actions used by agents.
+
+## Codex Skills
+
+This repository can include project-local Codex skills when they support IAproject-specific workflows.
+
+- `.codex/skills/learning-log-updater` updates `AI_LEARNING_LOG.md` with project learning milestones.
+
+Personal or global Codex skills, such as Git/GitHub workflow helpers or technical documentation helpers, are not stored in this repository.
+
+## API Endpoints
+
+```http
+GET  /api/topics
+GET  /api/skills
+GET  /api/agents
+GET  /api/tools
+POST /api/questions/generate
+```
+
+## Local Development
+
+Run the backend:
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+On Windows PowerShell:
+
+```powershell
+cd backend
+.\mvnw.cmd spring-boot:run
+```
+
+Run the frontend:
+
+```bash
+cd frontend
+npm start
+```
+
+The frontend runs on:
+
+```text
+http://localhost:4200
+```
+
+The backend runs on:
+
+```text
+http://localhost:8080
+```
 
 ## Next Steps
 
-- Define the first version of the application.
-- Choose the backend and frontend technologies.
-- Create the initial project structure.
-- Design the first question generation screen.
-- Implement the logic to generate questions by topic.
+- Add persistent storage for generated questions and quizzes.
+- Add quiz sessions and answer evaluation.
+- Add authentication and user progress.
+- Replace template-based generation with an AI provider behind the current agent/tool API.
+- Add admin CRUD for topics, skills, agents, and tools.
 
 ## License
 
