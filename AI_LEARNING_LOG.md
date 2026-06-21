@@ -52,3 +52,40 @@ This file tracks AI-assisted development concepts learned while building IAproje
 - Add authentication and authorization safely.
 - Connect a real AI provider behind the current question generation port.
 - Split the Angular UI into smaller pages and reusable components.
+
+## 2026-06-21 - Connecting Codex With GitHub and Notion Through MCP
+
+### Concepts Learned
+
+- MCP: introduced the Model Context Protocol as a way for Codex to connect with external tools through controlled, tool-specific integrations.
+- GitHub integration: introduced how Codex can inspect repositories, issues, pull requests, files, commits, and project activity through a GitHub MCP connection.
+- Notion integration: introduced how Codex can read and write shared Notion pages through a Notion MCP connection.
+- Tool permissions: introduced the difference between read access, write access, and workspace-level limitations in external integrations.
+- Documentation workflow: introduced Notion as a collaborative place for technical and functional project documentation while the source code remains in GitHub.
+- Security awareness: reinforced that integrations should not expose tokens, credentials, secrets, or private implementation details in logs or documentation.
+
+### Practical Actions
+
+- Verified that Codex can access the configured Notion workspace through MCP using the `notion_codex` bot.
+- Confirmed Notion write access by adding a short test paragraph to the shared `Codex` page.
+- Learned that the Notion integration can write to pages shared with the integration, but cannot create private workspace-level pages directly from an internal integration.
+- Connected the IAproject workflow with GitHub so Codex can help inspect repository state and support development tasks.
+- Defined Notion as the place where Codex can help write and maintain technical documentation and functional documentation for IAproject.
+- Recorded the Notion documentation page URL: https://app.notion.com/p/Codex-2a73bf6a0ee6805797e7f1bd3ce8c722
+
+### Key Vocabulary
+
+- MCP: a protocol that lets an AI assistant connect to external tools and data sources through explicit tool calls.
+- GitHub MCP: an integration that lets Codex work with repository data such as files, branches, issues, pull requests, and commits.
+- Notion MCP: an integration that lets Codex read, update, and create content in Notion pages that are available to the integration.
+- Bot user: the Notion identity used by the integration to access shared pages.
+- Technical documentation: documentation about architecture, setup, APIs, modules, data flow, deployment, and maintenance.
+- Functional documentation: documentation about product behavior, user flows, features, business rules, and expected outcomes.
+- Shared page: a Notion page explicitly made available to an integration so it can read or write content.
+
+### Next Concepts To Learn
+
+- Create a Notion documentation structure for IAproject, including technical and functional sections.
+- Decide which documentation belongs in GitHub and which documentation belongs in Notion.
+- Add templates for architecture notes, feature specifications, API documentation, and product decisions.
+- Use GitHub issues or pull requests together with Notion documentation to keep implementation and planning aligned.
